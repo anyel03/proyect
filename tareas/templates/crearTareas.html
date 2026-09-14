@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Crear Nueva Tarea</h4>
+          </div>
+          {{error}}
+          <div class="card-body">
+            <form action="/crearTareas/" method="POST">
+                {% csrf_token %}
+              <!-- Campo Título -->
+              <div class="mb-3">
+                <label for="titulo" class="form-label fw-bold">Título</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" maxlength="100" placeholder="Escribe el título (máx. 100 caracteres)" required />
+              </div>
+
+              <div class="mb-3">
+                <label for="descripcion" class="form-label fw-bold">Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" rows="3" placeholder="Descripción opcional..."></textarea>
+              </div>
+
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="importante" name="importante" />
+                <label class="form-check-label fw-bold" for="importante">Marcar como importante</label>
+              </div>
+
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Guardar Registro</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="card-footer text-muted small">Fecha de creación: Se asignará automáticamente al guardar.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

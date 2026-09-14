@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0">Editar Tarea</h4>
+        </div>
+
+        <div class="card-body">
+          {% if error %}
+            <div class="alert alert-danger" role="alert">
+              {{ error }}
+            </div>
+          {% endif %}
+
+          <form action="{% url 'detalleTarea' tarea.id %}" method="POST" class="mb-3">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+              <label for="titulo" class="form-label fw-bold">Título</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="titulo" 
+                name="titulo" 
+                maxlength="100" 
+                value="{{ tarea.titulo }}" 
+                required 
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="descripcion" class="form-label fw-bold">Descripción</label>
+              <textarea 
+                class="form-control" 
+                id="descripcion" 
+                name="descripcion" 
+                rows="3" 
+                placeholder="Descripción opcional..."
+              >{{ tarea.descripcion }}</textarea>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input 
+                type="checkbox" 
+                class="form-check-input" 
+                id="importante" 
+                name="importante" 
+                {% if tarea.importante %}checked{% endif %}
+              />
+              <label class="form-check-label fw-bold" for="importante">
+                Marcar como importante
+              </label>
+            </div>
+
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </div>
+          </form>
+
+          <!-- Formulario Secundario (Eliminar) -->
+          <div class="d-grid gap-2">
+            <form action="{% url 'eliminarTarea' tarea.id %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger w-100">Eliminar Tarea</button>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

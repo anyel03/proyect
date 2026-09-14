@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1>Gestor de tareas</h1>
+    {% for tarea in Tareas %}
+      <a href="{% url 'detalleTarea' tarea.id %}">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ tarea.titulo }}</h5>
+            <p class="card-text">{{ tarea.descripcion }}</p>
+            <p class="card-text">{{ tarea.fecha_creacion }}</p>
+            {% if tarea.importante %}
+              <span class="badge bg-danger">Importante</span>
+            {% endif %}
+          </div>
+        </div>
+      </a>
+
+    {% endfor %}
+  </div>
+{% endblock content %}
